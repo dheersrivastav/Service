@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+
+html,body{
+    height: 100%;
+    width: 100%;
+    /* background-color: rgb(8, 8, 8); */
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.header{
+    background-color: rgb(0, 0, 0);
+    height: 50px;
+    width: 100%;
+    color: white;
+}
+h1{
+    font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+    margin-left: 25px;
+  font-style: normal;
+  padding-top:15px;
+  font-size: 15px;
+}
+.mainbanner{
+    
+        /* border: 1px solid red; */
+        height: 190px;
+        margin-left: 150px;
+        display: flex;
+        width: 80%;
+        margin-top: 20px;
+        /* border: 1px solid rgb(223, 219, 219); */
+        border-radius: 20px;
+        background-color: rgb(0, 0, 0);
+        /* background-image: linear-gradient(to right, #000000, #3b3b3b, #777777, #b9b9b9, #ffffff); */
+        /* background-image: linear-gradient(to right, #f30a0a, #d30b0b, #d8e61c, #b0db12, #716f6f); */
+        background-image: linear-gradient(to right, #e04e01, #ea7600, #ef9a00, #efbe00, #ebe112);
+        /* background-image: linear-gradient(to rgb(202, 31, 31), red , white); */
+        color: rgb(255, 255, 255);
+        padding-top: 5px;
+        
+    
+}
+.Heading{
+    /* font-size: 20px; */
+    float: left;
+    margin-top: 3px;
+    font-size: 30px;
+}
+.headingpara{
+    color: rgb(255, 255, 255);
+    padding-top:15px;
+    margin-left: 28px;
+    font-family: "Lexend", sans-serif;
+    font-size: 15px;
+}
+.repairbutton{
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    margin-left: 24px;
+    font-style: normal;
+    margin-top: 30px;
+    font-weight: 200;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid #ffffff; */
+    border-radius: 9999px;
+    background-color: rgb(0, 0, 0);
+    padding: 0.625rem 1.5rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    outline: 0;
+    transition: all  .2s ease;
+    text-decoration: none;
+  }
+  
+  .repairbutton:hover {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    font-weight: 250;
+  }
+.ata{
+   float: right;
+   height: 190px;
+   margin-right: -140%;
+   margin-top: -90px;
+}
+
+/* !-- ------------------------------bodhgaya store--------------------- */
+.bodhgayastore{
+    border: 2px solid rgb(133, 231, 108);
+    background-color: rgb(195, 241, 195);
+    height: 70px;
+    margin-top: 10px;
+    border-radius: 13px;
+    margin: 12px;
+}
+.store{
+    font-weight: 800;
+    
+    
+}.storeFONT{
+    font-size: 12px;
+    text-transform: lowercase;
+    margin-top: -13px;
+}
+.delivery{
+    height: 100px;
+    float: right;
+    margin-top: -61px;
+margin-right: 10px;
+}
+
+
+
+.bodhgayastore1{
+    border: 2px solid rgb(185, 207, 228);
+    background-color: rgb(239, 238, 252);
+    height: 70px;
+    margin-top: 10px;
+    border-radius: 13px;
+    margin: 12px;
+}
+
+.store1{
+    font-weight: 800;
+}
+.storeFONT1{
+    font-size: 12px;
+    /* text-transform: lowercase; */
+    margin-top: -13px;
+}
+.seller{
+    height: 50px;
+    float: right;
+    margin-top: -45px;
+margin-right: 30px;
+}
+
+
+
+
+.filter{
+  width: 98%;
+  height: 35px;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 4px;
+
+}
+.filterbox1{
+   width: 190%;
+   height: 100%;
+   /* background-color: green; */
+   margin:10px;
+   border-radius: 7px;
+   margin-top: -5px;
+   border: 2px solid rgb(135, 209, 117);
+   background-color: rgb(195, 241, 195);
+   text-align: center;
+}
+.filterbox2{
+   width: 190%;
+   height: 100%;
+   
+   margin:10px;
+   border-radius: 7px;
+   margin-top: -5px;
+   border: 2px solid rgb(135, 209, 117);
+   background-color: rgb(195, 241, 195);
+   text-align: center;
+}
+.filterbox3{
+   width: 190%;
+   height: 100%;
+   
+   margin:10px;
+   border-radius: 7px;
+   margin-top: -5px;
+   border: 2px solid rgb(185, 207, 228);
+   background-color: rgb(186, 183, 233);
+   text-align: center;
+}
+
+.Storename{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-family: "Lexend", sans-serif;
+    font-size: 15px;
+    padding-left: 15px;
+    padding-top: 6px;
+    text-align: center;
+    display: flex;
+    font-weight: 500;
+    /* padding-top: 8s50px; */
+    
+}
+
+
+
+
+
+
+/* ---------------media query responsive----------------- */
+@media only screen and ( max-width:412px){
+    .mainbanner{
+    height: 170px;
+    margin-left: 10px;
+    width: 93%;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: black;
+    }
+    .Heading{
+        font-size: 25px;
+        float: left;
+        margin-top: 3px;
+       
+    }
+    .headingpara{
+        color: rgb(255, 255, 255);
+        padding-top:5px;
+        margin-left: 25px;
+        font-family: "Lexend", sans-serif;
+    }
+    .repairbutton{
+        float: left;
+    }
+    .container2{
+        width: 100%;
+        height: 190%;
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid black; */
+        /* margin-left: 90px;ss */
+        margin-top: -730px;
+        /* padding-top: 5px; */
+    }
+    .box1{
+        width: 45px;
+        height: 45px;
+        margin: 9px;
+        margin-left: 3%;
+        background-color: rgb(241, 241, 238);
+        border:1px solid #f3edb2;
+        border-radius: 5px;
+        object-fit: cover;
+        text-align: center;
+    }
+    .Shop{
+        height: 45px;
+    }
+    .ata{
+        /* float: right; */
+        height: 160px;
+        margin-right: -5%;
+        margin-top: -80px;
+     }
+    }

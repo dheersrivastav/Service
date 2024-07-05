@@ -1,0 +1,87 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+
+html,body{
+    height: 100%;
+    width: 100%;
+
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.banner{
+    height: 440px;
+    border: 1px solid rgb(248, 224, 5);
+    background-image: url("Image/food.jpg");
+    /* background-repeat: no-repeat; */
+    text-align: center;
+    font-family: "Lexend", sans-serif;
+    /* margin-top: -80px; */
+}
+.deliveryman{
+    height: 300px;
+    margin-top: 12px;
+
+  
+}
+h1{
+    margin-top: 80px;
+}
+h4{
+    margin-top: 10px;
+}
+.para1{
+    font-family: "Lexend", sans-serif; 
+    color: #024796;
+    text-align: center;
+    margin-top: 30px;
+}
+.para2{
+    font-family: "Lexend", sans-serif; 
+    color: #656566;
+    text-align: center;
+    margin-top: 1px;
+    font-size: 13px;
+    font-weight: 300;
+}
+.orderbutton{
+    text-decoration: none;
+    font-family: "Lexend", sans-serif;
+    /* width: 100%; */
+    margin-top: 10%;
+    display: inline-block;
+    /* outline: 0; */
+    cursor: pointer;
+    border: none;
+    /* padding: 0 56px; */
+    text-align: center;
+    height: 55px;
+    line-height: 52px;
+    border-radius: 3px;
+    background-color: #024796;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
+    /* transition: background 0.2s ease,color 0.2s ease,box-shadow 0.2s ease; */
+}
+
+
+
+/* ------media query---------- */
+@media only screen and (max-width:400px){
+    .deliveryman{
+        margin-left:-50px;
+    }
+    .banner{
+        width: 395px;
+    }
+    .orderbutton{
+        width:100%;
+        margin-top: 30%;
+    }
+}

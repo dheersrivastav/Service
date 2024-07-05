@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url("Image/red.jpg");
+ 
+    
+    font-family: "Lexend", sans-serif;
+    /* color: red; */
+   
+   
+}
+.deliveryimage{
+    height: 470px;
+    margin: auto;
+    /* border: 1px solid white; */
+    /* width: 52%; */
+    justify-content: center;
+    display: flex;
+    /* margin-top: 10%; */
+    /* margin-top: 30%; */
+}
+.Inputbox{
+    height: 70px;
+    display: flex;
+    margin: auto;
+    
+    margin-top:95px;
+    position: relative;
+    width: 70%;;
+    
+   
+    padding: 15px 12px;
+    font-family: "Lexend", sans-serif;
+    
+                font-size: 34px;
+                line-height: 20px;
+               
+                color: #24292e;
+                vertical-align: middle;
+                background-color: #ffffff;
+                background-repeat: no-repeat;
+                background-position: right 8px center;
+                border: 1px solid #e1e4e8;
+                border-radius: 8px;
+                outline: none;
+                box-shadow: rgba(225, 228, 232, 0.2) 0px 1px 0px 0px inset;
+                :focus{
+                    border-color: #0366d6;
+                    outline: none;
+                    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+                }
+                
+
+}
+.green{
+    height: 60vh;
+    background-color: white;
+    width: 100%;
+    padding-top: 20px;
+    margin: auto;
+    margin-top: -10%;
+    /* border: 5px solid grey; */
+    border-radius: 90px 90px 0px 0px;
+
+}
+.submitbutton{
+margin-top: 8%;
+  appearance: button;
+  background-color: #f13232;
+  border: 1px solid #d45b5b;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  /* font-family: Graphik,-apple-system,system-ui,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif; */
+  font-family: "Lexend", sans-serif;
+  font-size: 54px;
+  line-height: 1.15;
+  overflow: visible;
+  padding: 32px 16px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transition: all 80ms ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+
+.button-26:disabled {
+  opacity: .5;
+}
+
+.button-26:focus {
+  outline: 0;
+}
+
+.button-26:hover {
+  background-color: #0A46E4;
+  border-color: #0A46E4;
+}
+
+.button-26:active {
+  background-color: #0039D7;
+  border-color: #0039D7;
+}
+h1{
+   padding-bottom:119px;
+   /* position: absolute; */
+    color: white;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* ---------------------------------------------resposive----------------------- */
+
+  
+</style>
+<body>
+
+<img src="Image/deliveryredboy.png" alt="" class="deliveryimage">
+<h1>Connection under 30 Minutes</h1>
+<div class="green">
+  <form method="POST" name="google-sheet">
+    <label for="name"> </label>
+    <input type="text" id="fname" class="Inputbox" name="Name" placeholder="Full Name">
+
+    <label for="email"></label>
+    <input type="text" id="lname"class="Inputbox"  name="Email" placeholder="Email Address">
+
+    <label for="mobile"></label>
+    <input type="text" id="lname" class="Inputbox" name="Mobile" placeholder="Phone Number">
+
+    <label for="address"></label>
+    <input type="text" id="lname" class="Inputbox" name="Address" placeholder="Address">
+
+    <label for="pincode"></label>
+    <input type="text" id="lname" class="Inputbox" name="Pincode" placeholder="Pincode">
+
+    <!-- <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="australia">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select> -->
+  
+    <input type="submit" class="submitbutton"  value="Submit Now" name ="submit">
+  </form>
+</div>
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwy8xaZDciZIBhFF33Y-YiwhxWloH5t_tFuxrei1SlaJqCJt0EedVlHYSKqvc0hslq-/exec'
+    const form = document.forms['google-sheet']
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
+</body>
+</html>

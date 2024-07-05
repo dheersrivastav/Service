@@ -1,0 +1,623 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+
+html,body{
+    height: 100%;
+    
+    /* background-color: rgb(252, 249, 249); */
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+.Menu{
+    /* color: rgb(255, 255, 255); */
+    background-color:  rgb(255, 255, 255);
+    /* background-color: #dee0e4; */
+    margin-top: -30px;
+    height: 120px;
+
+}
+
+
+.notification{
+    filter: invert(1);
+height:25px;
+float: right;
+margin-right: 20px;
+margin-top: -0px;
+}
+
+h6{
+    margin-left: -265px;
+    font-weight: 250;
+    margin-top: -10px;
+    font-family: "Lexend", sans-serif;
+}
+
+h1{
+font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+margin-left: 30px;
+  font-style: normal;
+  padding-top:50px;
+  font-size: 23px;
+}
+
+/* ------------------banner----------- */
+.banner{
+  
+    height: 190px;
+    margin-left: 150px;
+    width: 80%;
+    margin-top: 20px;
+    /* border: 1px solid rgb(223, 219, 219);s */
+    /* border-radius: 20px; */
+    background-color: black;
+  
+    /* background-image: linear-gradient(to right, #000000, #1f1f1f, #393838, #545353, #716f6f); */
+    
+    color: rgb(255, 255, 255);
+    padding-top: 5px;
+    
+}
+
+/* -------------------------banner2------------------------------- */
+.banner2{
+    height: 170px;
+    margin:auto;
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid rgb(223, 219, 219);
+    /* border-radius: 20px; */
+    /* background-color: black; */
+    background-image: url("Image/red.jpg");
+    /* background-image: linear-gradient(to right, #cf0809, #d9342d, #e1504a, #e66865, #e97f7f); */
+    color: rgb(255, 255, 255);
+    padding-top: 5px;
+}
+.Heading2{
+    font-size: 25px;
+        float: left;
+        margin-top: -35px;
+}
+.headingpara2{
+    color: wheat;
+        margin-top: 55px;
+        margin-left: -195px;
+        font-size: 20px;
+}
+
+  .gascylinder{
+    height: 110px;
+    float: right;
+    margin-right: 18px;
+    margin-top:-45px;
+    /* 
+    
+    -shadow: white; */
+    border: 1px;
+  }
+ 
+
+
+
+.pcrepair{
+    height: 10px;
+    width: 200px;
+    float: right;
+    margin-top: -70px;
+    padding-right: 30px;
+}
+
+
+h5{
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    margin-left: 30px;
+    font-style: normal;
+    margin-top: 10px;
+    font-weight: 200;
+}
+.repairbutton{
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    margin-left: 30px;
+    font-style: normal;
+    margin-top: 30px;
+    font-weight: 200;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #b6fc8d;
+    border-radius: 9px;
+    background-color:  rgb(12, 148, 12);
+    padding: 0.625rem 1.5rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    outline: 0;
+    font-weight: 400;
+    transition: all  .2s ease;
+    text-decoration: none;
+  }
+  
+  .repairbutton:hover {
+    background-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    font-weight: 250;
+  }
+ 
+
+
+.conatiner{
+ 
+    width: 100%;
+    /* border-radius: 10px; */
+    height: 400%;
+    justify-content: space-around;
+    display: flex;
+    /* justify-content: center; */
+    /* border: 1px solid rgb(61, 141, 61); */
+    /* background-color: rgb(179, 238, 179); */
+    /* justify-content: space-around;
+    align-items: center;
+    margin: auto; */
+    
+}
+.conatiner2{
+    width: 100%;
+    /* border-radius: 10px; */
+    height: 400%;
+    /* justify-content: space-around; */
+    display: flex;
+}
+h2{
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    margin-left: 30px;
+    font-style: normal;
+    margin-top: 30px;
+    
+    font-weight: 300;
+}
+h3{
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    margin-left: 30px;
+    font-style: normal;
+    margin-top: 30px;    
+
+    
+    font-weight: 300;   
+}
+h4{
+    font-family: "Lexend", sans-serif;
+    color: black;
+    /* opacity: 10.5; */
+    font-size: 12px;
+    margin-left: 3px;
+    margin-top: 60px;
+}
+
+/* .box{
+    width: 100px;
+    height: 100px;
+    
+    border:1px solid rgb(217, 217, 219);
+    border-radius: 10px;
+    object-fit: cover;
+    padding: 5px;
+    margin-top: -65px;
+    
+} */
+.box{
+    width: 100px;
+    height: 100px;
+    /* background-color: rgb(238, 238, 241);  */
+     /* background-image: url("Image/green.jpg");  */
+     /* border:1px solid rgb(217, 217, 219);  */
+    border-radius: 10px;
+    mask-image: linear-gradient(black,transparent);
+    -webkit-mask-image: linear-gradient(black 60%,transparent 100%);
+    object-fit: cover;
+    padding: 5px;
+    margin-top: -65px;
+    
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.Image1{
+    height: 100px;
+    margin: auto;
+    display: block;
+}
+
+
+.videoicon{
+    height: 10px;
+    float: right;
+    margin-top: -40px;
+    margin-right: 15px;
+    /* filter: invert(70); */
+}
+.grocerytext{
+    color: black;
+    /* opacity: 10.5; */
+    font-size: 12px;
+    margin-left: 3px;
+    margin-top: 10px;
+
+}
+    
+
+
+.viewall{
+    font-family: "Lexend", sans-serif;
+    color: black;
+    
+    font-size: 12px;
+
+margin-right:15px;
+float: inline-end;
+
+}
+.viewall1{
+    font-family: "Lexend", sans-serif;
+    color: black;
+    
+    font-size: 12px;
+
+margin-right:15px;
+float: inline-end;
+
+}
+
+.footer{
+  /* display: flex; */
+  /* justify-content: space-around; */
+  margin-top: 15px;
+}
+.footer1{
+    /* border: 1px solid rgb(128, 87, 0); */
+    height: 115px;
+    width: 100%;
+    /* border-radius: 8px; */
+    /* background-image: url("Image/green.jpg"); */
+}
+
+.Discover{
+    text-align: justify;
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+    margin-right: 80px;
+    margin-top: -45px;
+}
+.Discover{
+    color: black;
+}
+.teacher{
+    height: 50px;
+}
+.tution{
+    font-size: 25px;
+}
+.tution1{
+    font-size: 25px;
+}
+.building{
+    height: 50px;
+}
+.deliverygirl{
+    height: 40px;
+}
+.morecity{
+    font-size: 20px;
+}
+.morecity1{
+    font-size: 20px;
+}
+/* ---------------------- RESPONSIVE --------------------- */
+
+@media only screen and ( max-width:400px){
+    .Menu{
+        height:120px;
+        background-color: rgb(255, 255, 255);
+        
+    }
+    .morecity{
+        text-align: justify;
+        margin-top: -120px;
+        font-size: 15px;
+        font-weight: 400;
+        color: rgb(173, 173, 173);
+        margin-left:15px;
+        opacity: 0.6;
+    }
+    .morecity1{
+        text-align: justify;
+        margin-top: -68px;
+        font-size: 25px;
+        font-weight: 700;
+        color: rgb(173, 173, 173);
+        margin-left:15px;
+        opacity: 0.6;
+    }
+    .deliverygirl{
+        
+        height: 70px;
+        margin-top: -78px;
+        float: right;
+    }
+.building{
+    height: 90px;
+    width: 100%;
+    margin-left: -8px;
+    opacity: 0.4;
+    /* margin-top:px; */
+}
+    .tution1{
+        font-size:13px;
+        font-weight: 300;
+        
+        text-align:start;
+        padding-top: 1px;
+    }
+    .tution{
+        font-size:15px;
+        font-weight: 700;
+        
+        text-align:start;
+        padding-top: 14px;
+      /* padding-right: 65px; */
+    }
+   .teacher{
+    height: 90px;
+    float: right;
+    margin-top: -7.5px;
+   }
+    .Discover{
+        text-align: justify;
+        margin-left: 15px;
+        font-size: 10px;
+        font-weight: 350;
+        color: rgb(109, 108, 108);
+        margin-right: 80px;
+        margin-top: -65px;
+    }
+    .grocerytext{
+        text-align: center;
+        color: black;
+        font-size: 12px;
+        margin-left: 3px;
+        margin-top: 8px;
+        
+    }
+    .footer1{
+        /* border: 1px solid rgb(218, 97, 97); */
+        background-image: url("Image/food.jpg");
+        height: 70px;
+        /* width: 1%; */
+    }
+    .banner2{
+        margin-top: -90%;
+    }
+    .viewall{
+        margin-top: -5px;
+    }
+    .viewall1{
+        margin-top: -5px;
+    }
+    .videoicon{
+        height: 20px;
+        float: right;
+        margin-top: -50px;
+        margin-right: 15px;
+        /* filter: invert(70); */
+    }
+    .number{
+        /* border: 1px solid grey; */
+        height: 30px;
+        background-color: rgb(67, 190, 67);
+        
+    }
+    .callnow{
+        border: 1px solid rgb(191, 214, 192);
+        height: 15px;
+        font-family: "Lexend", sans-serif;
+        font-size: 10px;
+        color: rgb(255, 255, 255);
+        border-radius: 3px;
+        float: left;
+        margin-left: 10px;
+        padding-top: 2px;
+        margin-top: 4px;
+        
+        width: 8%;
+    }
+
+    .pcrepair{
+        
+        /* box-sizing: border-box; */
+     float: right;
+     /* margin-left:  -1%; */
+     /* position: absolute; */
+     /* margin-left: 92px; */
+     /* margin-left: 210px; */
+     width: 150px;
+        height: 160px;
+       
+       
+    }
+    .Grocify{
+        /* margin-left: -320px; */
+        text-align: justify;
+        margin-left: 15px;
+        font-size: 18px;
+        color: rgb(0, 0, 0);
+        margin-right: 80px;
+        
+    }
+    h6{
+        margin-left: -238px;
+    }
+    .repairbutton{
+        float: left;
+    }
+    .gasorder{
+        float: left;
+    }
+    .banner{
+    height: 170px;
+    margin-left: 1px;
+    width: 100%;
+    
+    margin-top: 20px;
+
+    background-image: url("Image/food.jpg");
+    }
+    body{
+        text-align: center;
+    }
+    .h1{
+        color: orange;
+    }
+    h2{
+        font-size: 14px;
+        text-align: justify;
+        color: rgb(39, 39, 39);
+        position: relative;
+        margin-left: 15px;
+    }
+    h3{
+        font-size: 14px;
+        text-align: justify;
+        color: rgb(39, 39, 39);
+        position: relative;
+        margin-left: 15px;
+        margin-top: -45px;
+        margin-bottom: -14px;
+    }
+    .Heading{
+        font-size: 25px;
+        color: #000000;
+        float: left;
+        margin-top: -35px;
+       
+    }
+    .headingpara{
+        color: rgb(0, 0, 0);
+        margin-top: 55px;
+        /* position: relative; */
+        margin-left: -155px;
+        font-size: 15px;
+        font-weight: 400;
+    }
+    .headingpara2{
+        color: rgb(255, 255, 255);
+        margin-top: 55px;
+        margin-left: -165px;
+        
+        font-size: 15px;
+        font-weight: 400;
+    }
+    .box{
+        /* background-image: url("Image/groce.avif"); */
+        /* border:1px solid rgb(184, 183, 183); */
+        mask-image: linear-gradient(black,transparent);
+        -webkit-mask-image: linear-gradient(black 50%,transparent 100%);
+        border-radius: 15px 15px;
+        object-fit: cover;
+        background-size: contain;
+        margin: 10px ;
+        margin-top: 20px;
+        height: 70px;
+        width: 70px;
+
+    }
+    /* .box1{
+       
+        background-image: url("Image/groce.avif");
+        border:1px solid rgb(184, 183, 183);
+        mask-image: linear-gradient(black,transparent);
+        -webkit-mask-image: linear-gradient(black 60%,transparent 100%);
+        border-radius: 10px 10px;
+        object-fit: cover;
+        background-size: contain;
+        margin: 10px ;
+        height: 70px;
+        width: 70px;
+
+    } */
+    
+    .conatiner{
+     
+        
+        height: 200px;
+        
+     
+       
+    }
+    .conatiner2{
+        /* width: 100%; */
+        /* border-radius: 10px; */
+        height: 400%;
+        justify-content: space-around;
+        display: flex;
+        
+    }
+    .Image1{
+        height: 71px;
+        border:1px solid rgb(217, 217, 219); 
+        margin-top: -5.4px;
+        margin-left: -4px;
+        justify-content: space-around;
+        z-index: -1;
+        object-fit: contain;
+        border-radius: 10px 10px;
+        position: absolute;
+
+       
+    }
+    
+
+    .gasorderbutton{
+        font-family: "Lexend", sans-serif;
+        font-optical-sizing: auto;
+        margin-left: 30px;
+        font-style: normal;
+        margin-top: 30px;
+        font-weight: 200;
+    
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #360e64;
+        border-radius: 9px;
+        background-color:  rgb(13, 197, 136);
+        padding: 0.625rem 1.5rem;
+        text-align: center;
+        color: rgba(255, 255, 255, 1);
+        outline: 0;
+        font-weight: 400;
+        transition: all  .2s ease;
+        text-decoration: none;
+      }
+      
+      .gasorderbutton:hover {
+        background-color: rgb(0, 0, 0);
+        color: rgb(0, 0, 0);
+        font-weight: 250;
+      }
+      .gasorderbutton{
+        float: left;
+    }
+
+}
