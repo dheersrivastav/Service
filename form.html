@@ -23,16 +23,16 @@
         <h1>Service Details</h1>
         <form id="service-form" name="google-sheet">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="Name" required><br>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="Email" required><br>
             <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" required><br>
+            <input type="tel" id="phone" name="Phone" required><br>
             <label for="address">Address:</label>
-            <input type="text" id="address" name="address" required><br>
+            <input type="text" id="address" name="Address" required><br>
             <label for="pincode">Pin Code:</label>
-            <input type="text" id="pincode" name="pincode" required><br>
-            <input type="submit" value="Place Order">
+            <input type="text" id="pincode" name="Pincode" required><br>
+            <input type="submit" name="submit" value="Place Order">
         </form>
     </div>
 
@@ -43,17 +43,6 @@
     </div>
 
     <script>
-        function getQueryParams() {
-            const params = {};
-            const queryString = window.location.search.substring(1);
-            const regex = /([^&=]+)=([^&]*)/g;
-            let m;
-            while (m = regex.exec(queryString)) {
-                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-            }
-            return params;
-        }
-
         function showPopup() {
             document.getElementById('popup-message').style.display = 'block';
         }
@@ -87,11 +76,11 @@
             const doc = new jsPDF();
 
             doc.text("Invoice", 20, 20);
-            doc.text(`Name: ${formData.get('name')}`, 20, 30);
-            doc.text(`Email: ${formData.get('email')}`, 20, 40);
-            doc.text(`Phone: ${formData.get('phone')}`, 20, 50);
-            doc.text(`Address: ${formData.get('address')}`, 20, 60);
-            doc.text(`Pin Code: ${formData.get('pincode')}`, 20, 70);
+            doc.text(`Name: ${formData.get('Name')}`, 20, 30);
+            doc.text(`Email: ${formData.get('Email')}`, 20, 40);
+            doc.text(`Phone: ${formData.get('Phone')}`, 20, 50);
+            doc.text(`Address: ${formData.get('Address')}`, 20, 60);
+            doc.text(`Pin Code: ${formData.get('Pincode')}`, 20, 70);
 
             let yOffset = 80;
             cart.forEach((service, index) => {
@@ -105,21 +94,41 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadOrderSummary();
 
-            document.getElementById('service-form').addEventListener('submit', function(event) {
-                event.preventDefault();
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwy8xaZDciZIBhFF33Y-YiwhxWloH5t_tFuxrei1SlaJqCJt0EedVlHYSKqvc0hslq-/exec';
+            const form = document.forms['google-sheet'];
 
-                const form = document.getElementById('service-form');
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbwy8xaZDciZIBhFF33Y-YiwhxWloH5t_tFuxrei1SlaJqCJt0EedVlHYSKqvc0hslq-/exec';
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+
                 const formData = new FormData(form);
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+                // Gather all services from the cart
+                const services = cart.map(service => service.text).join(', ');
+
+                // Append the concatenated services string to the form data
+                formData.append('Services', services);
+
+                console.log('Form Data Entries:');
+                for (let pair of formData.entries()) {
+                    console.log(`${pair[0]}: ${pair[1]}`);
+                }
+
                 fetch(scriptURL, { method: 'POST', body: formData })
                     .then(response => {
-                        console.log('Success!', response);
-                        localStorage.removeItem('cart');
-                        showPopup();
+                        if (response.ok) {
+                            console.log('Success!', response);
+                            alert("Thanks for Contacting us..! We Will Contact You Soon...");
+                            localStorage.removeItem('cart');
+                            showPopup();
+                        } else {
+                            throw new Error('Network response was not ok.');
+                        }
                     })
-                    .catch(error => console.error('Error!', error.message));
+                    .catch(error => {
+                        console.error('Error!', error.message);
+                        alert('There was a problem with the submission. Please try again.');
+                    });
 
                 document.getElementById('download-invoice').addEventListener('click', () => {
                     generateInvoice(formData, cart);

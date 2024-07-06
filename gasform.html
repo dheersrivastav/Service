@@ -155,15 +155,31 @@ h1{
   </form>
 </div>
 <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwy8xaZDciZIBhFF33Y-YiwhxWloH5t_tFuxrei1SlaJqCJt0EedVlHYSKqvc0hslq-/exec'
-    const form = document.forms['google-sheet']
-  
-    form.addEventListener('submit', e => {
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwy8xaZDciZIBhFF33Y-YiwhxWloH5t_tFuxrei1SlaJqCJt0EedVlHYSKqvc0hslq-/exec'
+  const form = document.forms['google-sheet']
+
+  form.addEventListener('submit', e => {
       e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
-        .catch(error => console.error('Error!', error.message))
-    })
+
+      const formData = new FormData(form);
+      
+
+      console.log('Form Data Entries:');
+    
+
+      fetch(scriptURL, { method: 'POST', body: formData })
+          .then(response => {
+              
+                  alert("Thanks for Contacting us..! We Will Contact You Soon...");
+                 
+          })
+          .catch(error => {
+              console.error('Error!', error.message);
+              alert('There was a problem with the submission. Please try again.');
+          });
+        })
+
+    
   </script>
 
 </body>
