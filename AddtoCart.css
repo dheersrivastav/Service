@@ -62,12 +62,13 @@ h1 {
 }
 
 .remove-button {
-    background: #e74c3c;
+    background: #7492d3;
+    width:35px;
     color: white;
     padding: 5px;
     border: none;
     cursor: pointer;
-    border-radius: 50px;
+    border-radius: 60px;
 }
 
 button {

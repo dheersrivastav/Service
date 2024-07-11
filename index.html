@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="style.css" class="css">
     
     <title>Document</title>
+
+    <style>
+     
+      
+    </style>
+
 </head>
 <body>
     <!-- -----------------------BANNER___________________________ -->
@@ -17,17 +23,25 @@
        
 
         <!-- ---------------------share feature-------------------------------- -->
-        <img src="Image/pin'.png"  onclick="share()" class="videoicon">
+       
+        <img src="Image/basket.jpg" onclick="openCart()" class="videoicon">
+        <div class="cart-count-badge" id="cart-count">0</div>
+        
+
         <script>
-             function share(){
-                if (navigator.share){
-                    navigator.share({
-                        tile:"Demo",
-                        text: "check this channel",
-                        url:"https://youtu.be/kJQP7kiw5Fk?si=v-kuqbh6EzN3Be94"  
-                    })
-                }             
+            function openCart() {
+                window.location.href = 'addToCart.html';
             }
+
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                document.getElementById('cart-count').innerText = cart.length;
+            }
+
+            document.addEventListener('DOMContentLoaded', updateCartCount);
+
+            
+
         </script>
     <!-- ---------------------share feature-------------------------------- -->
 
