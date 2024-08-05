@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,44 +27,105 @@
             <img src="Image/windows.png" class="os" alt="Install Windows">
             <h1 class="Operating">Install Windows</h1>
             <h1 class="Operating1">Quick delivery</h1>
-            <a href="addtocart.html?service=windows-install" class="repairbutton">GET</a>
+            <button class="repairbutton" data-service="windows-install">GET</button>
         </div>
         <div class="bannerdelivery">
             <img src="Image/cpus.jpg" class="os" alt="CPU Full Repair">
             <h1 class="Operating">CPU Full Repair</h1>
             <h1 class="Operating1">Quick delivery</h1>
-            <a href="addtocart.html?service=cpu-repair" class="repairbutton">GET</a>
+            <button class="repairbutton" data-service="cpu-repair">GET</button>
         </div>
         <div class="bannerdelivery">
             <img src="Image/motherboard.jpeg" class="os" alt="Motherboard Repair">
             <h1 class="Operating">Motherboard Repair</h1>
             <h1 class="Operating1">Quick delivery</h1>
-            <a href="addtocart.html?service=motherboard-repair" class="repairbutton">GET</a>
+            <button class="repairbutton" data-service="motherboard-repair">GET</button>
         </div>
         <div class="bannerdelivery">
             <img src="Image/monitor.png" class="os" alt="Monitor Repair">
             <h1 class="Operating">Monitor Repair</h1>
             <h1 class="Operating1">Quick delivery</h1>
-            <a href="addtocart.html?service=monitor-repair" class="repairbutton">GET</a>
+            <button class="repairbutton" data-service="monitor-repair">GET</button>
         </div>
         <div class="bannerdelivery">
             <img src="Image/ups.jpeg" class="os" alt="Power Supply Failure">
             <h1 class="Operating">Power Supply Failure</h1>
             <h1 class="Operating1">Quick delivery</h1>
-            <a href="addtocart.html?service=power-supply-failure" class="repairbutton">GET</a>
+            <button class="repairbutton" data-service="power-supply-failure">GET</button>
         </div>
         <div class="bannerdelivery">
             <img src="Image/slow.png" class="os" alt="Slow Performance">
             <h1 class="Operating">Slow Performance</h1>
             <h1 class="Operating1">Quick delivery</h1>
-            <a href="addtocart.html?service=slow-performance" class="repairbutton">GET</a>
+            <button class="repairbutton" data-service="slow-performance">GET</button>
         </div>
         <div class="bannerdelivery">
             <img src="Image/pccrash.png" class="os" alt="PC Crash">
             <h1 class="Operating">PC Crash</h1>
             <h1 class="Operating1">Quick delivery</h1>
-            <a href="addtocart.html?service=pc-crash" class="repairbutton">GET</a>
+            <button class="repairbutton" data-service="pc-crash">GET</button>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.repairbutton').forEach(button => {
+                button.addEventListener('click', function() {
+                    const serviceType = this.getAttribute('data-service');
+                    addServiceToCart(serviceType);
+                });
+            });
+
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML('beforeend', data);
+                    const script = document.createElement('script');
+                    script.src = 'footer.js';
+                    script.onload = () => {
+                        updateFooterCart();
+                        document.getElementById('view-cart').addEventListener('click', () => {
+                            window.location.href = 'addtocart.html';
+                        });
+                        document.addEventListener('cartUpdated', updateFooterCart);
+                    };
+                    document.body.appendChild(script);
+                });
+        });
+
+        function addServiceToCart(serviceType) {
+            const services = {
+                'windows-install': { text: "Install Windows", img: "Image/windows.png", price: 50 },
+                'cpu-repair': { text: "CPU Full Repair", img: "Image/cpus.jpg", price: 70 },
+                'motherboard-repair': { text: "Motherboard Repair", img: "Image/motherboard.jpeg", price: 60 },
+                'monitor-repair': { text: "Monitor Repair", img: "Image/monitor.png", price: 40 },
+                'power-supply-failure': { text: "Power Supply Failure", img: "Image/ups.jpeg", price: 30 },
+                'slow-performance': { text: "Slow Performance", img: "Image/slow.png", price: 20 },
+                'pc-crash': { text: "PC Crash", img: "Image/pccrash.png", price: 80 }
+            };
+
+            const service = services[serviceType];
+            if (!service) return;
+
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            const existingService = cart.find(item => item.text === service.text);
+            if (existingService) {
+                existingService.count += 1;
+            } else {
+                service.count = 1;
+                cart.push(service);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.dispatchEvent(new CustomEvent('cartUpdated'));
+        }
+
+        function updateFooterCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cart.reduce((count, service) => count + service.count, 0);
+            document.getElementById('cart-count').innerText = cartCount;
+        }
+    </script>
 </body>
 </html>

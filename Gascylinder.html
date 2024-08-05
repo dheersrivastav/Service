@@ -52,5 +52,26 @@
     <img src="Image/sunny.png" alt="W3Schools.com" class="bannerdeliveryimage">
     <!-- <img src="Image/pattern.png" alt="W3Schools.com" class="bannerdeliveryimage1"> -->
 </div>
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML('beforeend', data);
+            const script = document.createElement('script');
+            script.src = 'footer.js';
+            script.onload = () => {
+                // Initialize the footer after the script is loaded
+                updateFooterCart();
+                document.getElementById('view-cart').addEventListener('click', () => {
+                    window.location.href = 'addToCart.html';
+                });
+                // Listen for custom event to update footer when the cart changes
+                document.addEventListener('cartUpdated', updateFooterCart);
+            };
+            document.body.appendChild(script);
+        });
+</script>
 </body>
+
+
 </html>

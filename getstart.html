@@ -16,4 +16,24 @@
     <h1 class="para2">Get your order and service on time</h1>
     <a href="index.html" class="orderbutton"> Lets get Started</a>
 </body>
+<script>
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML('beforeend', data);
+            const script = document.createElement('script');
+            script.src = 'footer.js';
+            script.onload = () => {
+                // Initialize the footer after the script is loaded
+                updateFooterCart();
+                document.getElementById('view-cart').addEventListener('click', () => {
+                    window.location.href = 'addToCart.html';
+                });
+                // Listen for custom event to update footer when the cart changes
+                document.addEventListener('cartUpdated', updateFooterCart);
+            };
+            document.body.appendChild(script);
+        });
+</script>
+</script>
 </html>

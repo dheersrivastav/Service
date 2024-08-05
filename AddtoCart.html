@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="pcrepair.css">
     <title>Add to Cart</title>
     <link rel="stylesheet" href="AddtoCart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="menu">
@@ -17,8 +18,11 @@
     <div class="cart-container">
         <h1>Selected Services</h1>
         <div id="cart-items"></div>
+        <div class="total-price-container">
+            <h2>Total Price: $<span id="total-price">0</span></h2>
+        </div>
         <button id="continue-shopping">Continue Shopping</button>
-        <button id="place-order">Place Order</button>
+        <button id="place-order">Place Order - $<span id="total-price-summary">0</span></button>
     </div>
 
     <script>
@@ -41,6 +45,7 @@
             if (cart.length === 0) {
                 cartItems.innerHTML = '<p>Your cart is empty.</p>';
                 updateCartCount();
+                updateTotalPrice();
                 return;
             }
 
@@ -51,7 +56,13 @@
                     <img src="${service.img}" class="cart-img" alt="${service.text}">
                     <div class="cart-details">
                         <h2>${service.text}</h2>
-                        <button class="remove-button" data-index="${index}">❌</button>
+                        <div class="cart-controls">
+                            <button class="decrement-button" data-index="${index}">-</button>
+                            <span class="item-count">${service.count}</span>
+                            <button class="increment-button" data-index="${index}">+</button>
+                            <span class="item-price">$${service.price * service.count}</span>
+                            <button class="remove-button" data-index="${index}"><i class="fas fa-trash-alt"></i></button>
+                        </div>
                     </div>
                 `;
                 cartItems.appendChild(serviceDiv);
@@ -65,19 +76,52 @@
                     localStorage.setItem('cart', JSON.stringify(cart));
                     loadCart();
                     updateCartCount();
+                    updateTotalPrice();
+                    document.dispatchEvent(new CustomEvent('cartUpdated'));
                 });
             });
+
+            document.querySelectorAll('.increment-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    cart[index].count += 1;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCart();
+                    updateTotalPrice();
+                    document.dispatchEvent(new CustomEvent('cartUpdated'));
+                });
+            });
+
+            document.querySelectorAll('.decrement-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    if (cart[index].count > 1) {
+                        cart[index].count -= 1;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCart();
+                    updateCartCount();
+                    updateTotalPrice();
+                    document.dispatchEvent(new CustomEvent('cartUpdated'));
+                });
+            });
+
+            updateTotalPrice();
         }
 
         function addServiceToCart(serviceType) {
             const services = {
-                'windows-install': { text: "Install Windows", img: "Image/windows.png" },
-                'cpu-repair': { text: "CPU Full Repair", img: "Image/cpus.jpg" },
-                'motherboard-repair': { text: "Motherboard Repair", img: "Image/motherboard.jpeg" },
-                'monitor-repair': { text: "Monitor Repair", img: "Image/monitor.png" },
-                'power-supply-failure': { text: "Power Supply Failure", img: "Image/ups.jpeg" },
-                'slow-performance': { text: "Slow Performance", img: "Image/slow.png" },
-                'pc-crash': { text: "PC Crash", img: "Image/pccrash.png" }
+                'windows-install': { text: "Install Windows", img: "Image/windows.png", price: 50 },
+                'cpu-repair': { text: "CPU Full Repair", img: "Image/cpus.jpg", price: 70 },
+                'motherboard-repair': { text: "Motherboard Repair", img: "Image/motherboard.jpeg", price: 60 },
+                'monitor-repair': { text: "Monitor Repair", img: "Image/monitor.png", price: 40 },
+                'power-supply-failure': { text: "Power Supply Failure", img: "Image/ups.jpeg", price: 30 },
+                'slow-performance': { text: "Slow Performance", img: "Image/slow.png", price: 20 },
+                'pc-crash': { text: "PC Crash", img: "Image/pccrash.png", price: 80 }
             };
 
             const service = services[serviceType];
@@ -86,16 +130,27 @@
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             
             // Check if the service is already in the cart
-            const isServiceInCart = cart.some(item => item.text === service.text);
-            if (!isServiceInCart) {
+            const existingService = cart.find(item => item.text === service.text);
+            if (existingService) {
+                existingService.count += 1;
+            } else {
+                service.count = 1;
                 cart.push(service);
-                localStorage.setItem('cart', JSON.stringify(cart));
             }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.dispatchEvent(new CustomEvent('cartUpdated'));
         }
 
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             parent.document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function updateTotalPrice() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalPrice = cart.reduce((total, service) => total + service.price * service.count, 0);
+            document.getElementById('total-price').innerText = totalPrice;
+            document.getElementById('total-price-summary').innerText = totalPrice;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -114,6 +169,8 @@
                 window.location.href = 'form.html';
             });
         });
+
+        
     </script>
 </body>
 </html>
