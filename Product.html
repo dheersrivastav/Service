@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="product.css" class="css">
+    <title>Product Page</title>
+</head>
+<body>
+
+<div class="section"></div>
+
+<script>
+  // Items categorized
+  const items = {
+    vegetables: [
+      { img: "tomatos.png", name: "Tomato", weight: "500g", price: "₹50" },
+      { img: "Image/Potato.png", name: "Potato", weight: "500g", price: "₹50" },
+      { img: "carrot.png", name: "Carrot", weight: "500g", price: "₹50" },
+      { img: "brinjle.png", name: "Brinjle", weight: "500g", price: "₹50" },
+      { img: "spinach.png", name: "Spinach", weight: "500g", price: "₹50" }
+    ],
+    fruits: [
+      { img: "Image/apple.png", name: "Apple", weight: "1kg", price: "₹150" },
+      { img: "Image/banana.png", name: "Banana", weight: "1kg", price: "₹40" },
+      { img: "Image/grapes.png", name: "Grapes", weight: "500g", price: "₹70" },
+      { img: "Image/orange.png", name: "Orange", weight: "1kg", price: "₹80" },
+      { img: "Image/mango.png", name: "Mango", weight: "1kg", price: "₹120" }
+    ],
+    dairy: [
+      { img: "Image/milk.png", name: "Milk", weight: "1L", price: "₹50" },
+      { img: "Image/butter.png", name: "Butter", weight: "200g", price: "₹90" },
+      { img: "Image/cheese.png", name: "Cheese", weight: "500g", price: "₹200" },
+      { img: "Image/yogurt.png", name: "Yogurt", weight: "500g", price: "₹60" },
+      { img: "Image/cream.png", name: "Cream", weight: "250g", price: "₹70" }
+    ],
+    electronics: [
+      { img: "Image/mobile.png", name: "Mobile", weight: "1 unit", price: "₹15000" },
+      { img: "Image/laptop.png", name: "Laptop", weight: "1 unit", price: "₹50000" },
+      { img: "Image/tv.png", name: "TV", weight: "1 unit", price: "₹40000" },
+      { img: "Image/monitor.png", name: "Monitor", weight: "1 unit", price: "₹10000" },
+      { img: "Image/motherboard.jpeg", name: "Motherboard", weight: "1 unit", price: "₹8000" }
+    ],
+    services: [
+      { img: "Image/repairman.avif", name: "Repairman Service", weight: "Per Hour", price: "₹500" },
+      { img: "Image/serviceboy.png", name: "Service Boy", weight: "Per Hour", price: "₹400" },
+      { img: "Image/technicians.png", name: "Technician Service", weight: "Per Hour", price: "₹600" },
+      { img: "Image/pccrash.png", name: "PC Repair Service", weight: "Per Job", price: "₹2000" },
+      { img: "Image/slow.png", name: "PC Optimization Service", weight: "Per Job", price: "₹1000" }
+    ],
+    household: [
+      { img: "Image/rice.jpg", name: "Rice", weight: "5kg", price: "₹250" },
+      { img: "Image/oil.webp", name: "Cooking Oil", weight: "1L", price: "₹150" },
+      { img: "Image/masala.png", name: "Spices", weight: "500g", price: "₹200" },
+      { img: "Image/tide.webp", name: "Detergent", weight: "1kg", price: "₹100" },
+      { img: "Image/pads.webp", name: "Sanitary Pads", weight: "1 Pack", price: "₹50" }
+    ]
+  };
+
+  const section = document.querySelector(".section");
+
+  // Function to display items based on the selected category
+  function displayItems(category) {
+    section.innerHTML = ""; // Clear previous items
+    items[category].forEach(item => {
+      section.innerHTML += `
+        <div class="box">
+          <img src="${item.img}" alt="${item.name}">
+          ${item.name}<br>
+          <h6>${item.weight}</h6>
+          <h5>${item.price}</h5>
+          <button>ADD</button>
+        </div>
+      `;
+    });
+  }
+
+  // Initial display of vegetables
+  displayItems('vegetables');
+</script>
+
+<div class="scrolling-wrapper">
+    <div class="card" onclick="displayItems('vegetables')"><img src="spinach.png" alt="Vegetables"></div>
+    <div class="card" onclick="displayItems('fruits')"><img src="carrot.png" alt="Fruits"></div>
+    <div class="card" onclick="displayItems('dairy')"><img src="Image/milk.png" alt="Dairy"></div>
+    <div class="card" onclick="displayItems('electronics')"><img src="Image/monitor.png" alt="Electronics"></div>
+    <div class="card" onclick="displayItems('services')"><img src="Image/technicians.png" alt="Services"></div>
+    <div class="card" onclick="displayItems('household')"><img src="Image/oil.webp" alt="Household"></div>
+</div>
+
+
+
+</body>
+</html>

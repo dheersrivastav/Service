@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+
+html,body{
+    height: 100%;
+    font-family: "Lexend", sans-serif;
+    background-color: rgb(252, 249, 249);
+
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.section{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    /* margin-bottom: 900%; */
+    
+  
+}
+.box{
+border: 1px solid rgb(211, 209, 209);
+height: 100px;
+width: 100px;
+margin: 9px;
+margin-bottom: 60px;
+font-family: "Lexend", sans-serif;
+border-radius: 5px;
+background-image: url("wood.webp");
+
+
+
+}
+.box img{
+height: 100%;
+}
+.box button{
+    background-color: rgb(4, 136, 4);
+    border: none;
+    margin-left: 50px;
+    margin-top: -18px;
+    border-radius: 2px;
+    font-size: 10px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+}
+.scrolling-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #a7d89b;
+    box-shadow: 0 -10px 5px rgba(98, 44, 44, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px;
+    z-index: 2000;
+    white-space: nowrap;
+  
+    .card {
+      display: inline-block;
+      
+    }
+  }
+
+.card img{
+    height: 50px;
+    border: 1px solid rgb(238, 236, 236);
+    border-radius: 50%;
+  
+}
+h5{
+    color: green;
+    margin-top: 5px;
+}
