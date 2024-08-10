@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="product.css" class="css">
+    <link rel="stylesheet" href="product.css">
     <title>Product Page</title>
 </head>
 <body>
@@ -11,7 +11,6 @@
 <div class="section"></div>
 
 <script>
-  // Items categorized
   const items = {
     vegetables: [
       { img: "tomatos.png", name: "Tomato", weight: "500g", price: "₹50" },
@@ -59,7 +58,6 @@
 
   const section = document.querySelector(".section");
 
-  // Function to display items based on the selected category
   function displayItems(category) {
     section.innerHTML = ""; // Clear previous items
     items[category].forEach(item => {
@@ -69,14 +67,62 @@
           ${item.name}<br>
           <h6>${item.weight}</h6>
           <h5>${item.price}</h5>
-          <button>ADD</button>
+          <button class="add-button" data-name="${item.name}" data-price="${item.price.replace('₹', '')}">ADD</button>
         </div>
       `;
     });
+
+    // Reattach event listeners after rendering items
+    document.querySelectorAll('.add-button').forEach(button => {
+      button.addEventListener('click', function() {
+        const itemName = this.getAttribute('data-name');
+        const itemPrice = parseFloat(this.getAttribute('data-price'));
+        addItemToCart(itemName, itemPrice);
+      });
+    });
   }
 
-  // Initial display of vegetables
-  displayItems('vegetables');
+  function addItemToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+      existingItem.count += 1;
+    } else {
+      cart.push({ name, price, count: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.dispatchEvent(new CustomEvent('cartUpdated'));
+  }
+
+  function updateFooterCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cart.reduce((count, item) => count + item.count, 0);
+    const totalPrice = cart.reduce((total, item) => total + (item.price * item.count), 0);
+
+    document.getElementById('cart-count').innerText = cartCount;
+    document.getElementById('total-price').innerText = `₹${totalPrice}`;
+  }
+
+  displayItems('vegetables');  // Initial display
+
+  fetch('footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.body.insertAdjacentHTML('beforeend', data);
+      const script = document.createElement('script');
+      script.src = 'footer.js';
+      script.onload = () => {
+        updateFooterCart();
+        document.getElementById('view-cart').addEventListener('click', () => {
+          window.location.href = 'addToCart.html';
+        });
+        document.addEventListener('cartUpdated', updateFooterCart);
+      };
+      document.body.appendChild(script);
+    });
+
 </script>
 
 <div class="scrolling-wrapper">
@@ -87,8 +133,6 @@
     <div class="card" onclick="displayItems('services')"><img src="Image/technicians.png" alt="Services"></div>
     <div class="card" onclick="displayItems('household')"><img src="Image/oil.webp" alt="Household"></div>
 </div>
-
-
 
 </body>
 </html>
