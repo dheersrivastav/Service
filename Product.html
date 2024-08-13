@@ -77,19 +77,20 @@
       button.addEventListener('click', function() {
         const itemName = this.getAttribute('data-name');
         const itemPrice = parseFloat(this.getAttribute('data-price'));
-        addItemToCart(itemName, itemPrice);
+        const itemImg = this.parentNode.querySelector('img').getAttribute('src');
+        addItemToCart(itemName, itemPrice, itemImg);
       });
     });
   }
 
-  function addItemToCart(name, price) {
+  function addItemToCart(name, price,img) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existingItem = cart.find(item => item.name === name);
     if (existingItem) {
       existingItem.count += 1;
     } else {
-      cart.push({ name, price, count: 1 });
+      cart.push({ name, price,img, count: 1 });
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));

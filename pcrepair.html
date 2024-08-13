@@ -95,26 +95,28 @@
 
         function addServiceToCart(serviceType) {
             const services = {
-                'windows-install': { text: "Install Windows", img: "Image/windows.png", price: 50 },
-                'cpu-repair': { text: "CPU Full Repair", img: "Image/cpus.jpg", price: 70 },
-                'motherboard-repair': { text: "Motherboard Repair", img: "Image/motherboard.jpeg", price: 60 },
-                'monitor-repair': { text: "Monitor Repair", img: "Image/monitor.png", price: 40 },
-                'power-supply-failure': { text: "Power Supply Failure", img: "Image/ups.jpeg", price: 30 },
-                'slow-performance': { text: "Slow Performance", img: "Image/slow.png", price: 20 },
-                'pc-crash': { text: "PC Crash", img: "Image/pccrash.png", price: 80 }
+                'windows-install': { name: "Install Windows", img: "Image/windows.png", price: 50 },
+                'cpu-repair': { name: "CPU Full Repair", img: "Image/cpus.jpg", price: 70 },
+                'motherboard-repair': { name: "Motherboard Repair", img: "Image/motherboard.jpeg", price: 60 },
+                'monitor-repair': { name: "Monitor Repair", img: "Image/monitor.png", price: 40 },
+                'power-supply-failure': { name: "Power Supply Failure", img: "Image/ups.jpeg", price: 30 },
+                'slow-performance': { name: "Slow Performance", img: "Image/slow.png", price: 20 },
+                'pc-crash': { name: "PC Crash", img: "Image/pccrash.png", price: 80 }
             };
 
             const service = services[serviceType];
-            if (!service) return;
+            if (!service) {
+                console.error("Service not found:", serviceType);
+                return;
+            }
 
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingItem = cart.find(item => item.name === service.name && item.img === service.img);
 
-            const existingService = cart.find(item => item.text === service.text);
-            if (existingService) {
-                existingService.count += 1;
+            if (existingItem) {
+                existingItem.count += 1;
             } else {
-                service.count = 1;
-                cart.push(service);
+                cart.push({ name: service.name, price: service.price, img: service.img, count: 1 });
             }
 
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -123,7 +125,7 @@
 
         function updateFooterCart() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartCount = cart.reduce((count, service) => count + service.count, 0);
+            const cartCount = cart.reduce((count, item) => count + item.count, 0);
             document.getElementById('cart-count').innerText = cartCount;
         }
     </script>
