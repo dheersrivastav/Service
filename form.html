@@ -27,7 +27,7 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="Email" required><br>
             <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="Phone" required><br>
+            <input type="tel" id="phone" name="Mobile" required><br>            
             <label for="address">Address:</label>
             <input type="text" id="address" name="Address" required><br>
             <label for="pincode">Pin Code:</label>
@@ -54,42 +54,44 @@
         function loadOrderSummary() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
             const orderSummary = document.getElementById('order-summary');
-
+        
             if (cart.length === 0) {
                 orderSummary.innerHTML = '<p>No services selected.</p>';
                 return;
             }
-
-            cart.forEach(service => {
+        
+            cart.forEach(item => {
                 const serviceDiv = document.createElement('div');
                 serviceDiv.classList.add('order-item');
                 serviceDiv.innerHTML = `
-                    <img src="${service.img}" class="order-img" alt="${service.text}">
-                    <h2>${service.text}</h2>
+                    <img src="${item.img}" class="order-img" alt="${item.name}">
+                    <h2>${item.name}</h2>
                 `;
                 orderSummary.appendChild(serviceDiv);
             });
         }
+        
 
         function generateInvoice(formData, cart) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-
+        
             doc.text("Invoice", 20, 20);
             doc.text(`Name: ${formData.get('Name')}`, 20, 30);
             doc.text(`Email: ${formData.get('Email')}`, 20, 40);
-            doc.text(`Phone: ${formData.get('Phone')}`, 20, 50);
+            doc.text(`Phone: ${formData.get('Mobile')}`, 20, 50);
             doc.text(`Address: ${formData.get('Address')}`, 20, 60);
             doc.text(`Pin Code: ${formData.get('Pincode')}`, 20, 70);
-
+        
             let yOffset = 80;
-            cart.forEach((service, index) => {
-                doc.text(`Service ${index + 1}: ${service.text}`, 20, yOffset);
+            cart.forEach((item, index) => {
+                doc.text(`Service ${index + 1}: ${item.name}`, 20, yOffset);
                 yOffset += 10;
             });
-
+        
             doc.save('invoice.pdf');
         }
+        
 
         document.addEventListener('DOMContentLoaded', () => {
             loadOrderSummary();
@@ -99,21 +101,21 @@
 
             form.addEventListener('submit', e => {
                 e.preventDefault();
-
+            
                 const formData = new FormData(form);
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
+            
                 // Gather all services from the cart
-                const services = cart.map(service => service.text).join(', ');
-
+                const services = cart.map(service => service.name).join(', ');
+            
                 // Append the concatenated services string to the form data
                 formData.append('Services', services);
-
+            
                 console.log('Form Data Entries:');
                 for (let pair of formData.entries()) {
                     console.log(`${pair[0]}: ${pair[1]}`);
                 }
-
+            
                 fetch(scriptURL, { method: 'POST', body: formData })
                     .then(response => {
                         if (response.ok) {
@@ -129,11 +131,13 @@
                         console.error('Error!', error.message);
                         alert('There was a problem with the submission. Please try again.');
                     });
-
+            
                 document.getElementById('download-invoice').addEventListener('click', () => {
                     generateInvoice(formData, cart);
                 });
             });
+            
+            
         });
     </script>
 </body>
