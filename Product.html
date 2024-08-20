@@ -57,31 +57,37 @@
   };
 
   const section = document.querySelector(".section");
-
+  
   function displayItems(category) {
     section.innerHTML = ""; // Clear previous items
     items[category].forEach(item => {
-      section.innerHTML += `
-        <div class="box">
-          <img src="${item.img}" alt="${item.name}">
-          ${item.name}<br>
-          <h6>${item.weight}</h6>
-          <h5>${item.price}</h5>
-          <button class="add-button" data-name="${item.name}" data-price="${item.price.replace('₹', '')}">ADD</button>
-        </div>
-      `;
+        section.innerHTML += `
+            <div class="box">
+                <img src="${item.img}" alt="${item.name}" onclick="openProductDetails('${item.img}', '${item.name}', '${item.weight}', '${item.price.replace('₹', '')}')">
+                ${item.name}<br>
+                <h6>${item.weight}</h6>
+                <h5>${item.price}</h5>
+                <button class="add-button" data-name="${item.name}" data-price="${item.price.replace('₹', '')}">ADD</button>
+            </div>
+        `;
     });
 
     // Reattach event listeners after rendering items
     document.querySelectorAll('.add-button').forEach(button => {
-      button.addEventListener('click', function() {
-        const itemName = this.getAttribute('data-name');
-        const itemPrice = parseFloat(this.getAttribute('data-price'));
-        const itemImg = this.parentNode.querySelector('img').getAttribute('src');
-        addItemToCart(itemName, itemPrice, itemImg);
-      });
+        button.addEventListener('click', function() {
+            const itemName = this.getAttribute('data-name');
+            const itemPrice = parseFloat(this.getAttribute('data-price'));
+            const itemImg = this.parentNode.querySelector('img').getAttribute('src');
+            addItemToCart(itemName, itemPrice, itemImg);
+        });
     });
-  }
+}
+
+function openProductDetails(img, name, weight, price) {
+    const url = `product-details.html?img=${encodeURIComponent(img)}&name=${encodeURIComponent(name)}&weight=${encodeURIComponent(weight)}&price=${encodeURIComponent(price)}`;
+    window.location.href = url;
+}
+
 
   function addItemToCart(name, price,img) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];

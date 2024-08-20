@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="product-details.css">
+    <title>Product Details</title>
+</head>
+<style>
+
+  /* General Styles for Product Details */
+.product-details {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    animation: fadeIn 1s ease-in-out;
+    overflow: hidden; /* Ensures child elements don’t overflow the container */
+}
+
+/* Product Image Styling */
+#product-image {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+}
+
+#product-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+}
+
+/* Text Styling */
+h1, h2, h3, p {
+    margin: 10px 0;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+/* Product Name */
+h1 {
+    font-size: 2em;
+    color: #333;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+h1:hover {
+    color: #ff5722;
+    transform: scale(1.05);
+}
+
+/* Price and Weight */
+h2 {
+    font-size: 1.5em;
+    color: #ff5722;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+h2:hover {
+    color: #e64a19;
+    transform: translateY(-5px);
+}
+
+h3 {
+    font-size: 1.2em;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+h3:hover {
+    color: #444;
+}
+
+/* Description */
+p {
+    font-size: 1em;
+    color: #444;
+    line-height: 1.6;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+p:hover {
+    color: #666;
+    transform: translateY(2px);
+}
+
+/* Add to Cart Button */
+#add-to-cart {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #ff5722;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#add-to-cart:hover {
+    background-color: #e64a19;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+</style>
+<body>
+
+    <div class="product-details">
+        <img id="product-image" src="" alt="Product Image">
+        <h1 id="product-name"></h1>
+        <h2 id="product-price"></h2>
+        <h3 id="product-weight"></h3>
+        <p id="product-description"></p>
+        <button id="add-to-cart">Add to Cart</button>
+    </div>
+
+    <script>
+        // Retrieve the item details from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const price = urlParams.get('price');
+        const weight = urlParams.get('weight');
+        const img = urlParams.get('img');
+
+        // Update the page with the item details
+        document.getElementById('product-image').src = img;
+        document.getElementById('product-name').innerText = name;
+        document.getElementById('product-price').innerText = `Price: ₹${price}`;
+        document.getElementById('product-weight').innerText = `Weight: ${weight}`;
+        document.getElementById('product-description').innerText = `Description of ${name}`;
+
+        // Add to Cart functionality
+        document.getElementById('add-to-cart').addEventListener('click', () => {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.count += 1;
+            } else {
+                cart.push({ name, price, img, count: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} has been added to the cart.`);
+        });
+    </script>
+</body>
+</html>
