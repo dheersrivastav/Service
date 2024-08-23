@@ -162,7 +162,42 @@ p:hover {
             }
 
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert(`${name} has been added to the cart.`);
+
+            // Dispatch a custom event to update the footer cart count
+            const event = new Event('cartUpdated');
+            document.dispatchEvent(event);
+        });
+
+        // Function to update the cart count in the footer
+        function updateFooterCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cart.reduce((sum, item) => sum + item.count, 0);
+
+            // Assuming your footer has an element with id 'view-cart' to show cart count
+            const viewCartButton = document.getElementById('view-cart');
+            if (viewCartButton) {
+                viewCartButton.innerText = `View Cart (${cartCount})`;
+            }
+        }
+
+        // Fetch and inject the footer
+        fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML('beforeend', data);
+            const script = document.createElement('script');
+            script.src = 'footer.js';
+            script.onload = () => {
+                // Initialize the footer after the script is loaded
+                updateFooterCart();
+                document.getElementById('view-cart').addEventListener('click', () => {
+                    window.location.href = 'addToCart.html';
+                });
+
+                // Listen for custom event to update footer when the cart changes
+                document.addEventListener('cartUpdated', updateFooterCart);
+            };
+            document.body.appendChild(script);
         });
     </script>
 </body>

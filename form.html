@@ -71,7 +71,6 @@
             });
         }
         
-
         function generateInvoice(formData, cart) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -89,9 +88,8 @@
                 yOffset += 10;
             });
         
-            doc.save('invoice.pdf');
+            return doc;
         }
-        
 
         document.addEventListener('DOMContentLoaded', () => {
             loadOrderSummary();
@@ -111,11 +109,7 @@
                 // Append the concatenated services string to the form data
                 formData.append('Services', services);
             
-                console.log('Form Data Entries:');
-                for (let pair of formData.entries()) {
-                    console.log(`${pair[0]}: ${pair[1]}`);
-                }
-            
+                // Send the form data to Google Sheets
                 fetch(scriptURL, { method: 'POST', body: formData })
                     .then(response => {
                         if (response.ok) {
@@ -123,6 +117,10 @@
                             alert("Thanks for Contacting us..! We Will Contact You Soon...");
                             localStorage.removeItem('cart');
                             showPopup();
+
+                            // Generate and save the invoice
+                            const invoiceDoc = generateInvoice(formData, cart);
+                            invoiceDoc.save('invoice.pdf');
                         } else {
                             throw new Error('Network response was not ok.');
                         }
@@ -131,13 +129,7 @@
                         console.error('Error!', error.message);
                         alert('There was a problem with the submission. Please try again.');
                     });
-            
-                document.getElementById('download-invoice').addEventListener('click', () => {
-                    generateInvoice(formData, cart);
-                });
             });
-            
-            
         });
     </script>
 </body>
