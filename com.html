@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="com-menu.css">
+    <title>Product Page</title>
+</head>
+<body>
+  <h1>Delivery in <span>minutes</span></h1>
+
+  <div class="section"></div>
+
+  <script>
+    const items = {
+      Mouse: [
+        { img: "Image/redmouse.png", name: "Game R1", weight: "Wired", price: "₹50" },
+        { img: "Image/redmouse.png", name: "Game R1", weight: "Wired", price: "₹50" },
+        { img: "Image/redmouse.png", name: "Game R1", weight: "Wired", price: "₹50" }
+      ],
+      fruits: [
+        { img: "Image/apple.png", name: "Apple", weight: "1kg", price: "₹150" },
+        { img: "Image/banana.jpeg", name: "Banana", weight: "1kg", price: "₹40" },
+        { img: "Image/grapes.webp", name: "Grapes", weight: "500g", price: "₹70" }
+      ],
+      Oil: [
+        { img: "Image/oil.png", name: "Mustard Oil", weight: "1L", price: "₹50" },
+        { img: "Image/spyahealth.jpg", name: "Soya Health", weight: "1L", price: "₹90" },
+        { img: "Image/soyahealth5.webp", name: "Soya Health", weight: "1L", price: "₹60" }
+      ],
+      rice: [
+        { img: "Image/ashiwadata.webp", name: "Aata", weight: "5kg", price: "₹150" },
+        { img: "Image/taazagreen.webp", name: "Taaza", weight: "100g", price: "₹50" },
+        { img: "Image/salt.png", name: "Salt", weight: "500g", price: "₹10" }
+      ],
+      Milkproduct: [
+        { img: "Image/bournvita.webp", name: "BournVita", weight: "500g", price: "₹500" },
+        { img: "Image/Horlicswomen.webp", name: "Horlics", weight: "500g", price: "₹400" },
+        { img: "Image/soats.webp", name: "Oats", weight: "500g", price: "₹2000" }
+      ],
+      Snacks: [
+        { img: "Image/redbingo.webp", name: "Bingo", weight: "100g", price: "₹20" },
+        { img: "Image/lays.avif", name: "Lays", weight: "100g", price: "₹20" },
+        { img: "Image/rusk.avif", name: "Rusk", weight: "100g", price: "₹20" }
+      ],
+      Cleaning: [
+        { img: "Image/tides.webp", name: "Tide", weight: "500g", price: "₹50" },
+        { img: "Image/tide2.png", name: "Tide", weight: "500g", price: "₹50" },
+        { img: "Image/wheel.webp", name: "Wheel", weight: "500g", price: "₹50" }
+      ],
+      Milk: [
+        { img: "Image/Amul.avif", name: "Amul", weight: "500g", price: "₹50" },
+        { img: "Image/Amuls.avif", name: "Amul", weight: "500g", price: "₹50" },
+        { img: "Image/sudha.png", name: "Sudha", weight: "500g", price: "₹50" }
+      ]
+    };
+
+    const section = document.querySelector(".section");
+
+    function displayItems(category) {
+      section.innerHTML = ""; // Clear previous items
+      items[category].forEach(item => {
+        section.innerHTML += `
+          <div class="box">
+            <img src="${item.img}" alt="${item.name}" onclick="openProductDetails('${item.img}', '${item.name}', '${item.weight}', '${item.price}')">
+            ${item.name}<br>
+            <h6>${item.weight}</h6>
+            <h5>${item.price}</h5>
+            <button class="add-button" data-name="${item.name}" data-price="${item.price.replace('₹', '')}">ADD</button>
+          </div>
+        `;
+      });
+
+      // Reattach event listeners after rendering items
+      document.querySelectorAll('.add-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const itemName = this.getAttribute('data-name');
+            const itemPrice = parseFloat(this.getAttribute('data-price')); // Parse price as float
+            const itemImg = this.parentNode.querySelector('img').getAttribute('src');
+            addItemToCart(itemName, itemPrice, itemImg);
+        });
+        
+      });
+    }
+
+    function addItemToCart(name, price, img) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  
+      // Ensure the price is cleaned and converted properly
+      const numericPrice = typeof price === 'string' ? parseFloat(price.replace(/[^\d.-]/g, '')) : price;
+  
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+          // Update the item's count and total price
+          existingItem.count += 1;
+          existingItem.totalPrice += numericPrice;
+      } else {
+          // Add new item to cart with totalPrice calculated
+          cart.push({ name, price: numericPrice, totalPrice: numericPrice, img, count: 1 });
+      }
+  
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateFooterCart();
+      document.dispatchEvent(new CustomEvent('cartUpdated'));
+  }
+  
+    
+    function updateFooterCart() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = cart.reduce((count, item) => count + item.count, 0);
+        const totalPrice = cart.reduce((total, item) => total + item.totalPrice, 0);
+    
+        document.getElementById('cart-count').innerText = `${cartCount} items`;
+        document.getElementById('total-price').innerText = `$${totalPrice.toFixed(2)}`;
+    }
+    
+      
+    
+
+    displayItems('Mouse');  // Initial display
+
+    fetch('footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.body.insertAdjacentHTML('beforeend', data);
+      const script = document.createElement('script');
+      script.src = 'footer.js';
+      script.onload = () => {
+        updateFooterCart();
+        document.getElementById('view-cart').addEventListener('click', () => {
+          window.location.href = 'addToCart.html';
+        });
+        document.addEventListener('cartUpdated', updateFooterCart);
+      };
+      document.body.appendChild(script);
+    });
+
+    function openProductDetails(img, name, weight, price) {
+      const url = `product-details.html?img=${encodeURIComponent(img)}&name=${encodeURIComponent(name)}&weight=${encodeURIComponent(weight)}&price=${encodeURIComponent(price)}`;
+      window.location.href = url;
+    }
+  </script>
+
+  <div class="scrolling-wrapper">
+    <div class="card" onclick="displayItems('Mouse')"><img src="Image/Mouse.webp" alt="Mouse" class="menuhover"></div>
+    <div class="card" onclick="displayItems('fruits')"><img src="Image/keyboard.webp" alt="Fruits" class="menuhover"></div>
+    <div class="card" onclick="displayItems('Oil')"><img src="Image/pendrive.png" alt="Oil" class="menuhover"></div>
+    <div class="card" onclick="displayItems('rice')"><img src="Image/Speakers.png" alt="Rice" class="menuhover"></div>
+    <div class="card" onclick="displayItems('Milkproduct')"><img src="Image/Monitorss.avif" alt="Milk Products" class="menuhover"></div>
+    <div class="card" onclick="displayItems('Snacks')"><img src="Image/upss.png" alt="Snacks" class="menuhover"></div>
+    <div class="card" onclick="displayItems('Cleaning')"><img src="Image/Camera.png" alt="Cleaning Essentials" class="menuhover"></div>
+    <div class="card" onclick="displayItems('Milk')"><img src="Image/Printers.png" alt="Milk" class="menuhover"></div>
+    <!-- <div class="card" onclick="displayItems('household')"><img src="Image/oil.webp" alt="Household"></div> -->
+  </div>
+</body>
+</html>

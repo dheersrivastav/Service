@@ -7,7 +7,6 @@
     <title>Product Details</title>
 </head>
 <style>
-
   /* General Styles for Product Details */
 .product-details {
     max-width: 600px;
@@ -121,11 +120,8 @@ p:hover {
         transform: translateY(0);
     }
 }
-
-
 </style>
 <body>
-
     <div class="product-details">
         <img id="product-image" src="" alt="Product Image">
         <h1 id="product-name"></h1>
@@ -139,7 +135,7 @@ p:hover {
         // Retrieve the item details from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name');
-        const price = urlParams.get('price');
+        const price = parseFloat(urlParams.get('price').replace(/[^\d.-]/g, '')); // Convert price to a float
         const weight = urlParams.get('weight');
         const img = urlParams.get('img');
 
