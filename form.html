@@ -14,8 +14,7 @@
             <h1 id="service-header" class="BodhGayabanner">Order Summary</h1>
         </div>
     </div>
-
-    <div class="banner2">
+     <div class="banner2">
         <div id="order-summary"></div>
     </div>
 
@@ -66,10 +65,12 @@
                 serviceDiv.innerHTML = `
                     <img src="${item.img}" class="order-img" alt="${item.name}">
                     <h2>${item.name}</h2>
+                    <p>Quantity: ${item.count}</p>
                 `;
                 orderSummary.appendChild(serviceDiv);
             });
         }
+        
         
         function generateInvoice(formData, cart) {
             const { jsPDF } = window.jspdf;
@@ -83,12 +84,13 @@
             doc.text(`Pin Code: ${formData.get('Pincode')}`, 20, 70);
         
             let yOffset = 80;
-            cart.forEach((item, index) => {
-                doc.text(`Service ${index + 1}: ${item.name}`, 20, yOffset);
-                yOffset += 10;
-            });
-        
-            return doc;
+    cart.forEach((item, index) => {
+        console.log(`Item ${index + 1}:`, item); // Log each item
+        doc.text(`Service ${index + 1}: ${item.name || 'N/A'} x${item.count || 1}`, 20, yOffset);
+        yOffset += 10;
+    });
+
+    return doc;
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -104,7 +106,7 @@
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];
             
                 // Gather all services from the cart
-                const services = cart.map(service => service.name).join(', ');
+                const services = cart.map(service => `${service.name || 'N/A'} (Quantity: ${service.count || 1})`).join(', ');
             
                 // Append the concatenated services string to the form data
                 formData.append('Services', services);
